@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerInputManager))]
@@ -36,5 +35,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         _inputManager = GetComponent<PlayerInputManager>();
+        
+        _inputManager.HideCursor();
     }
 }
