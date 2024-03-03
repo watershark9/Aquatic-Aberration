@@ -6,14 +6,14 @@ public class PlayerInputManager : MonoBehaviour
 
     public Vector2 MovementDirection => _controls.Movement.Walk.ReadValue<Vector2>();
 
-    public void HideCursor()
+    public void SetCursorVisibility(bool isVisible)
     {
-        Cursor.visible = false;
+        Cursor.visible = isVisible;
     }
 
-    public void ShowCursor()
+    public void SetCursorLockState(CursorLockMode lockMode)
     {
-        Cursor.visible = true;
+        Cursor.lockState = lockMode;
     }
 
     private void Awake()

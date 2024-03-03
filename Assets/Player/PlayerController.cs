@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
     {
         _inputManager = GetComponent<PlayerInputManager>();
         
-        _inputManager.HideCursor();
+        _inputManager.SetCursorVisibility(false);
+        _inputManager.SetCursorLockState(CursorLockMode.Locked);
     }
 }
