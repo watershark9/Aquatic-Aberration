@@ -1,8 +1,10 @@
 using UnityEngine;
 
+[RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(PlayerInputManager))]
 public class PlayerController : MonoBehaviour
 {
+    private CharacterController _characterController;
     private PlayerInputManager _inputManager;
 
     [Header("Script Settings")]
@@ -10,21 +12,24 @@ public class PlayerController : MonoBehaviour
     private Transform cameraTransform;
     
     [Header("Movement Settings")]
-    [SerializeField] private float movementSpeed = 5f;
+    [SerializeField]
+    private float movementSpeed = 5f;
 
     private void Move()
     {
         var inputDirection = _inputManager.MovementDirection;
-        if (!(inputDirection.magnitude > 0.1f)) return;
+        
+        var netMovement = Physics.gravity;
+        
+        if (inputDirection.magnitude > 0.1f)
+        {
+            var movementDirection =
+                (cameraTransform.forward * inputDirection.y + cameraTransform.right * inputDirection.x).normalized;
 
-        var movementDirection = (cameraTransform.forward * inputDirection.y + cameraTransform.right * inputDirection.x).normalized;
-        movementDirection.y = 0;
+            netMovement += movementDirection * movementSpeed;
+        }
 
-        var position = transform.position;
-        var targetPosition = position + movementDirection;
-        var maxTravelDistanceThisFrame = movementSpeed * Time.deltaTime;
-        position = Vector3.MoveTowards(position, targetPosition, maxTravelDistanceThisFrame);
-        transform.position = position;
+        _characterController.Move(netMovement * Time.deltaTime);
     }
     
     private void FixedUpdate()
@@ -34,9 +39,10 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        _characterController = GetComponent<CharacterController>();
         _inputManager = GetComponent<PlayerInputManager>();
         
-        _inputManager.SetCursorVisibility(false);
-        _inputManager.SetCursorLockState(CursorLockMode.Locked);
+        PlayerInputManager.SetCursorVisibility(false);
+        PlayerInputManager.SetCursorLockState(CursorLockMode.Locked);
     }
 }

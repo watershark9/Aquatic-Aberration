@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerInputManager : MonoBehaviour
@@ -6,12 +7,12 @@ public class PlayerInputManager : MonoBehaviour
 
     public Vector2 MovementDirection => _controls.Movement.Walk.ReadValue<Vector2>();
 
-    public void SetCursorVisibility(bool isVisible)
+    public static void SetCursorVisibility(bool isVisible)
     {
         Cursor.visible = isVisible;
     }
 
-    public void SetCursorLockState(CursorLockMode lockMode)
+    public static void SetCursorLockState(CursorLockMode lockMode)
     {
         Cursor.lockState = lockMode;
     }
@@ -23,7 +24,7 @@ public class PlayerInputManager : MonoBehaviour
 
     private void Start()
     {
-        _controls.Enable();
+        OnEnable();
     }
 
     private void OnEnable() {
