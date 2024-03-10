@@ -1,14 +1,14 @@
-using System;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(PlayerInputManager))]
+[RequireComponent(typeof(PlayerInventory))]
 public class PlayerController : MonoBehaviour
 {
     private CharacterController _characterController;
     private PlayerInputManager _inputManager;
+    private PlayerInventory _inventory;
 
     [Header("Script Settings")]
     [SerializeField]
@@ -17,6 +17,10 @@ public class PlayerController : MonoBehaviour
     [Header("Movement Settings")]
     [SerializeField]
     private float movementSpeed = 5f;
+
+    [Header("Interaction Settings")]
+    [SerializeField]
+    private float maxInteractionDistance = 3f;
 
     private void Move()
     {
@@ -37,7 +41,19 @@ public class PlayerController : MonoBehaviour
     
     private void Interacted(InputAction.CallbackContext obj)
     {
-        //
+        var ray = new Ray(cameraTransform.position, cameraTransform.forward);
+        Physics.Raycast(ray, out var hit);
+        if (hit.collider == null) return;
+        
+        var interactionObject = hit.collider.gameObject;
+        if (Vector3.Distance(interactionObject.transform.position, cameraTransform.position) >
+            maxInteractionDistance) return;
+        
+        if (!interactionObject.gameObject.TryGetComponent<CollectableItem>(out var itemComponent)) return;
+
+        itemComponent.Interacted?.Invoke();
+        _inventory.AddItem();
+
     }
     
     private void FixedUpdate()
@@ -45,11 +61,15 @@ public class PlayerController : MonoBehaviour
         Move();
     }
 
-    private void Start()
+    private void Awake()
     {
         _characterController = GetComponent<CharacterController>();
         _inputManager = GetComponent<PlayerInputManager>();
-        
+        _inventory = GetComponent<PlayerInventory>();
+    }
+
+    private void Start()
+    {
         _inputManager.InteractAction.performed += Interacted;
         
         PlayerInputManager.SetCursorVisibility(false);
