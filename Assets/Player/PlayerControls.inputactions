@@ -2,7 +2,7 @@
     "name": "PlayerControls",
     "maps": [
         {
-            "name": "Movement",
+            "name": "Gameplay",
             "id": "e4216dcd-29cb-4c62-ab7b-567b7fcb9748",
             "actions": [
                 {
@@ -10,6 +10,15 @@
                     "type": "PassThrough",
                     "id": "18a9eed6-6426-4b94-9c7f-7cc4f50ffba0",
                     "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "0e062607-4b41-4d83-b823-0fbd8924fa4e",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -81,6 +90,17 @@
                     "action": "Walk",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "747487e9-6efb-4b1e-8b27-965f86f19215",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

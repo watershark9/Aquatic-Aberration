@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: b13d0d380951bbe4e86f943c18958cb8
 ModelImporter:
-  serializedVersion: 21300
+  serializedVersion: 22200
   internalIDToNameTable: []
   externalObjects: {}
   materials:
@@ -13,11 +13,9 @@ ModelImporter:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
     resampleCurves: 1
-    optimizeGameObjects: 0
+    optimizeGameObjects: 1
     removeConstantScaleCurves: 1
     motionNodeName: 
-    rigImportErrors: 
-    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -40,6 +38,7 @@ ModelImporter:
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
+    importPhysicalCameras: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -67,6 +66,7 @@ ModelImporter:
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
+    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -80,7 +80,132 @@ ModelImporter:
   humanDescription:
     serializedVersion: 3
     human: []
-    skeleton: []
+    skeleton:
+    - name: EelMonster(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Body
+      parentName: EelMonster(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Armature
+      parentName: EelMonster(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Head
+      parentName: Armature
+      position: {x: 1.8008012e-12, y: 0.0055744457, z: 0.029570702}
+      rotation: {x: 0.9984286, y: -0.00000007348146, z: -0.0000013091949, w: 0.056039356}
+      scale: {x: 1, y: 0.99999994, z: 0.9999839}
+    - name: Jaw Top
+      parentName: Head
+      position: {x: -7.1037617e-15, y: 0.018541379, z: 4.4703483e-10}
+      rotation: {x: 0.09800738, y: -2.471734e-11, z: -0.00000025704261, w: 0.9951857}
+      scale: {x: 1, y: 0.9999999, z: 0.99999994}
+    - name: Jaw Top_end
+      parentName: Jaw Top
+      position: {x: -0, y: 0.023561077, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Jaw Bottom
+      parentName: Head
+      position: {x: -7.1037617e-15, y: 0.018541379, z: 4.4703483e-10}
+      rotation: {x: 0.22341928, y: -2.6416563e-11, z: -0.00000058592354, w: 0.97472245}
+      scale: {x: 1, y: 0.99999994, z: 0.9999999}
+    - name: Jaw Bottom_end
+      parentName: Jaw Bottom
+      position: {x: -0, y: 0.022906868, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Neck
+      parentName: Armature
+      position: {x: 1.2435682e-17, y: 0.005510309, z: 0.029578112}
+      rotation: {x: 0.5291986, y: 1.17194684e-17, z: -4.352095e-17, w: 0.84849805}
+      scale: {x: 1, y: 0.9999999, z: 0.9999999}
+    - name: Torso
+      parentName: Neck
+      position: {x: -0, y: 0.02530757, z: 0.0000000011920929}
+      rotation: {x: -0.01407215, y: -1.1904312e-18, z: -9.979558e-18, w: 0.99990106}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: Tail1
+      parentName: Torso
+      position: {x: 5.293956e-25, y: 0.029107511, z: 5.9604643e-10}
+      rotation: {x: 0.2062251, y: 4.227588e-24, z: 4.579119e-17, w: 0.9785046}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Tail2
+      parentName: Tail1
+      position: {x: 3.1763735e-24, y: 0.016019898, z: 0.0000000035762786}
+      rotation: {x: 0.0567919, y: 0.04318543, z: -0.60375154, w: 0.7939735}
+      scale: {x: 1, y: 0.9999999, z: 0.99999994}
+    - name: Tail3
+      parentName: Tail2
+      position: {x: -3.1763735e-24, y: 0.011989486, z: 0.0000000043213366}
+      rotation: {x: 0.029944558, y: 0.02604658, z: -0.11865728, w: 0.99214184}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Tail4
+      parentName: Tail3
+      position: {x: 7.9409337e-25, y: 0.009845476, z: 0}
+      rotation: {x: 0.012517292, y: 0.0007195935, z: -0.010248681, w: 0.9998689}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Tail5
+      parentName: Tail4
+      position: {x: -1.8528846e-24, y: 0.008577819, z: 0}
+      rotation: {x: 0.043394063, y: 6.958588e-24, z: 9.635419e-18, w: 0.99905807}
+      scale: {x: 1, y: 1, z: 1.0000001}
+    - name: Tail6
+      parentName: Tail5
+      position: {x: 3.9704669e-25, y: 0.006617842, z: 0}
+      rotation: {x: 0.040754545, y: 7.320762e-24, z: 9.049332e-18, w: 0.9991692}
+      scale: {x: 1, y: 0.99999994, z: 0.9999999}
+    - name: Tail6_end
+      parentName: Tail6
+      position: {x: -0, y: 0.006262213, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Arm.L
+      parentName: Armature
+      position: {x: -0.004953379, y: 0.03244642, z: 0.03081876}
+      rotation: {x: -0.13999276, y: 0.7542057, z: -0.64144295, w: -0.011256391}
+      scale: {x: 0.99999994, y: 0.9999999, z: 0.99999994}
+    - name: Arm.L_end
+      parentName: Arm.L
+      position: {x: -0, y: 0.017163713, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Leg.L
+      parentName: Armature
+      position: {x: -0.0037759137, y: 0.061948106, z: 0.026587278}
+      rotation: {x: 0.82250756, y: -0.24879265, z: -0.1479961, w: -0.48957205}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Leg.L_end
+      parentName: Leg.L
+      position: {x: -0, y: 0.035725124, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Arm.R
+      parentName: Armature
+      position: {x: 0.004953379, y: 0.03244642, z: 0.03081876}
+      rotation: {x: 0.13999276, y: 0.7542057, z: -0.64144295, w: 0.011256391}
+      scale: {x: 0.99999994, y: 0.9999999, z: 0.99999994}
+    - name: Arm.R_end
+      parentName: Arm.R
+      position: {x: -0, y: 0.017163713, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Leg.R
+      parentName: Armature
+      position: {x: 0.0037759137, y: 0.061948106, z: 0.026587278}
+      rotation: {x: 0.82250756, y: 0.24879265, z: 0.1479961, w: -0.48957205}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Leg.R_end
+      parentName: Leg.R
+      position: {x: -0, y: 0.035725124, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -91,14 +216,15 @@ ModelImporter:
     globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
-  animationType: 2
+  animationType: 1
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 0
   remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0
   userData: 

@@ -1,11 +1,13 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerInputManager : MonoBehaviour
 {
     private PlayerControls _controls;
 
-    public Vector2 MovementDirection => _controls.Movement.Walk.ReadValue<Vector2>();
+    public Vector2 MovementDirection => _controls.Gameplay.Walk.ReadValue<Vector2>();
+    public InputAction InteractAction => _controls.Gameplay.Interact;
 
     public static void SetCursorVisibility(bool isVisible)
     {

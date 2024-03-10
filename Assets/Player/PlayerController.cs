@@ -1,4 +1,7 @@
+using System;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(PlayerInputManager))]
@@ -32,6 +35,23 @@ public class PlayerController : MonoBehaviour
         _characterController.Move(netMovement * Time.deltaTime);
     }
     
+    private void Interacted(InputAction.CallbackContext obj)
+    {
+        void MakeMonsterMoveToTargetLocation()
+        {
+            Physics.Raycast(new Ray(cameraTransform.position, cameraTransform.forward), out var hit);
+
+            var xGameObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            xGameObject.transform.position = hit.point;
+            xGameObject.transform.localScale = Vector3.one * 0.25f;
+
+            var monster = FindFirstObjectByType<MonsterAI>();
+            monster.GoToPoint(hit.point);
+        }
+        
+        MakeMonsterMoveToTargetLocation();
+    }
+    
     private void FixedUpdate()
     {
         Move();
@@ -41,6 +61,8 @@ public class PlayerController : MonoBehaviour
     {
         _characterController = GetComponent<CharacterController>();
         _inputManager = GetComponent<PlayerInputManager>();
+        
+        _inputManager.InteractAction.performed += Interacted;
         
         PlayerInputManager.SetCursorVisibility(false);
         PlayerInputManager.SetCursorLockState(CursorLockMode.Locked);
