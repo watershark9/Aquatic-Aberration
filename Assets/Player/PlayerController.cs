@@ -37,19 +37,7 @@ public class PlayerController : MonoBehaviour
     
     private void Interacted(InputAction.CallbackContext obj)
     {
-        void MakeMonsterMoveToTargetLocation()
-        {
-            Physics.Raycast(new Ray(cameraTransform.position, cameraTransform.forward), out var hit);
-
-            var xGameObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            xGameObject.transform.position = hit.point;
-            xGameObject.transform.localScale = Vector3.one * 0.25f;
-
-            var monster = FindFirstObjectByType<MonsterAI>();
-            monster.GoToPoint(hit.point);
-        }
-        
-        MakeMonsterMoveToTargetLocation();
+        //
     }
     
     private void FixedUpdate()
