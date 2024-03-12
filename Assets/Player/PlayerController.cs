@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     private PlayerInputManager _inputManager;
     private PlayerInventory _inventory;
 
+    private bool isPaused = false;
+
     [Header("Script Settings")]
     [SerializeField]
     private Transform cameraTransform;
@@ -21,6 +23,10 @@ public class PlayerController : MonoBehaviour
     [Header("Interaction Settings")]
     [SerializeField]
     private float maxInteractionDistance = 3f;
+
+    [Header("Game Settings")]
+    [SerializeField]
+    private GameController gameController;
 
     private void Move()
     {
@@ -56,6 +62,20 @@ public class PlayerController : MonoBehaviour
 
     }
     
+    private void Paused(InputAction.CallbackContext obj)
+    {
+        if (isPaused)
+        {
+            gameController.PauseGame();
+        }
+        else
+        {
+            gameController.ResumeGame();
+        }
+
+        isPaused = !isPaused;
+    }
+    
     private void FixedUpdate()
     {
         Move();
@@ -71,8 +91,6 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         _inputManager.InteractAction.performed += Interacted;
-        
-        PlayerInputManager.SetCursorVisibility(false);
-        PlayerInputManager.SetCursorLockState(CursorLockMode.Locked);
+        _inputManager.PauseAction.performed += Paused;
     }
 }
