@@ -24,22 +24,41 @@ public class MonsterAI : MonoBehaviour
 
     [Header("Movement Settings")]
     [SerializeField] private NavMeshMovementSettings searchingMovementSettings;
+    [SerializeField] private bool movementEnabled = true;
     
     [Header("Chase Settings")]
     [SerializeField] private float chaseTimeout = 4f;
     [SerializeField] private NavMeshMovementSettings chasingMovementSettings;
+
+    [Header("Game Settings")]
+    [SerializeField] private GameController gameController;
     
     private NavMeshAgent _navMeshAgent;
     private CharacterVision _vision;
     private MonsterState _currentState;
     private bool _canSeeTarget = false;
     private DateTime _lastSeenTargetTime;
+    private bool _coughtTarget = false;
     
     public readonly UnityEvent<Vector3> Alerted = new();
     public readonly UnityEvent TargetSpotted = new();
     public readonly UnityEvent<MonsterState> StateChanged = new();
+    public readonly UnityEvent TargetCought = new();
+
+    private void TargetCaught()
+    {
+        _coughtTarget = true;
+        
+        gameController.PlayerDied();
+    }
     
     #region Vision
+
+    private void GoTo(Vector3 coordinate)
+    {
+        if (!movementEnabled) return;
+        _navMeshAgent.SetDestination(coordinate);
+    }
     
     private IEnumerator CheckVisionCoroutine()
     {
@@ -83,7 +102,7 @@ public class MonsterAI : MonoBehaviour
     private void Alert(Vector3 coordinate)
     {
         ChangeState(MonsterState.Investigating);
-        _navMeshAgent.SetDestination(coordinate);
+        GoTo(coordinate);
     }
     
     private void LocateTarget()
@@ -132,7 +151,7 @@ public class MonsterAI : MonoBehaviour
             }
 
             if (!_canSeeTarget) return;
-            _navMeshAgent.SetDestination(target.transform.position);
+            GoTo(target.transform.position);
         }
 
         void SearchLogic()
@@ -141,7 +160,7 @@ public class MonsterAI : MonoBehaviour
                 !(_navMeshAgent.remainingDistance <= _navMeshAgent.stoppingDistance)) return;
 
             var randomSearchPoint = searchPoints.GetRandomElement();
-            _navMeshAgent.SetDestination(randomSearchPoint.position);
+            GoTo(randomSearchPoint.position);
         }
 
         void InvestigateLogic()
@@ -165,6 +184,7 @@ public class MonsterAI : MonoBehaviour
         Alerted?.AddListener(Alert);
         TargetSpotted?.AddListener(LocateTarget);
         StateChanged?.AddListener(SetStateSettings);
+        TargetCought?.AddListener(TargetCaught);
 
 #if DEBUG
         StateChanged?.AddListener((state) =>
@@ -184,6 +204,12 @@ public class MonsterAI : MonoBehaviour
     private void FixedUpdate()
     {
         StateMachineLogic();
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (_coughtTarget || other.gameObject != target) return;
+        TargetCought?.Invoke();
     }
 
     #endregion

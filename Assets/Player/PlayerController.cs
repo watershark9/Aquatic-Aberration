@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour
     
     private void Paused(InputAction.CallbackContext obj)
     {
-        if (isPaused)
+        if (!isPaused)
         {
             gameController.PauseGame();
         }
